@@ -3,9 +3,13 @@ let
   inherit (lib) attrNames elem filterAttrs mapAttrs fix flip pipe;
 in
 {
+  fromTable = table: x: table.${x};
+
   apply = conf: super:
     let
       inherit (conf) hosts modules;
+
+      settings = { resolve = lib.id; } // (conf.settings or {});
 
       valsToNames = mapAttrs (n: _: n);
 
@@ -21,7 +25,7 @@ in
               hostname = lib.head (getHosts n);
             in
             {
-              host = hostname;
+              host = settings.resolve hostname;
               config = hosts.${hostname}.config;
             };
 

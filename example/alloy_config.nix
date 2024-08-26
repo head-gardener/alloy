@@ -1,4 +1,12 @@
+alloy:
 {
+  settings = {
+    resolve = alloy.lib.fromTable {
+      server = "10.0.0.1";
+      client = "10.0.0.2";
+    };
+  };
+
   modules = {
     nix-serve = ./nix-serve.nix;
     cache = ./cache.nix;
