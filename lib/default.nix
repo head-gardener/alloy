@@ -19,15 +19,21 @@ let
         specialArgs = { alloy-utils = utils; };
       };
     in
-    finalConf.config;
+    finalConf;
 in
 {
   inherit utils;
 
+  mkDocs = { pkgs }:
+  let
+    eval = evalAlloyConfig [ ];
+    docs = pkgs.nixosOptionsDoc { inherit (eval) options; };
+  in docs;
+
   apply = conf: super:
     let
 
-      inherit (evalAlloyConfig conf) hosts modules settings;
+      inherit ((evalAlloyConfig conf).config) hosts modules settings;
 
       valsToNames = mapAttrs (n: _: n);
 
