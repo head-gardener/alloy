@@ -1,6 +1,6 @@
 # Alloy
 
-Alloy is a tool for managing interdependent services between different configurations inside a flake.
+`alloy` is a tool for managing interdependent services between different configurations inside a flake.
 
 ## Overview
 
@@ -18,30 +18,42 @@ in
 }
 ```
 
-To install alloy add it to flake inputs and wrap your `nixosConfigurations` in a call to `alloy.lib.apply`, providing configuration:
+## Installation
+
+To install `alloy` you can use `flake-parts` or do it yourself. 
+- When using parts, add `alloy.flakeModule` to your imports, put your configuration in `flake.alloy.config` and move `flake.nixosConfigurations` to `flake.alloy.nixosConfigurations`.
+- When doing it yourself, wrap your `nixosConfigurations` in a call to `alloy.lib.apply`, providing configuration:
 
 ```nix
-nixosConfigurations = alloy.lib.apply
-  {
-    modules = {
-      module = ./module.nix; # anything that's considered a module
-    };
-
-    hosts = mods: with mods; {
-      host = [ module ]; # what modules go where
-    };
-  }
-  {
-    # your configs
-    host = { ... };
-  }
+nixosConfigurations = alloy.lib.apply (import ./alloy_config.nix) {
+  host = { ... };
+  # your configs
+}
 ```
 
-See `example` for a complete demonstration.
+## Configuration
+
+General idea looks like this:
+
+```nix
+{
+  modules = {
+    module = ./module.nix; # anything that's considered a module
+  };
+
+  hosts = mods: with mods; {
+    host = [ module ]; # what modules go where
+  };
+}
+```
+
+## Example
+
+See `/example` for a complete flake, defining multiple interdependent configurations via `alloy`.
 
 ## TODO
 
 - (x) make this a flake-parts module
-- ( ) use nix's module system for configuring alloy
+- ( ) use nix's module system for config
 - ( ) handle multi-instance services
 - ( ) documentation, errors
