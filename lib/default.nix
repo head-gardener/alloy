@@ -1,15 +1,33 @@
 lib:
 let
   inherit (lib) attrNames elem filterAttrs mapAttrs fix flip pipe;
+
+  utils = {
+    fromTable = table: x: table.${x};
+  };
+
+  evalAlloyConfig = conf:
+    let
+      baseModules = [
+        ../modules/options.nix
+      ];
+
+      userModules = if builtins.isList conf then conf else [ conf ];
+
+      finalConf = lib.evalModules {
+        modules = baseModules ++ userModules;
+        specialArgs = { alloy-utils = utils; };
+      };
+    in
+    finalConf.config;
 in
 {
-  fromTable = table: x: table.${x};
+  inherit utils;
 
   apply = conf: super:
     let
-      inherit (conf) hosts modules;
 
-      settings = { resolve = lib.id; } // (conf.settings or {});
+      inherit (evalAlloyConfig conf) hosts modules settings;
 
       valsToNames = mapAttrs (n: _: n);
 

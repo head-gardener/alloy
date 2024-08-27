@@ -17,17 +17,14 @@ in
         };
 
         config = mkOption {
-          type = types.path;
+          type = types.either (types.listOf types.raw) (types.raw);
         };
       };
     };
   };
 
   config = {
-    flake.nixosConfigurations = mkIf
-      (opts.config != null)
-      (alloyFlake.lib.apply
-        (import opts.config inputs.alloy)
-        opts.nixosConfigurations);
+    flake.nixosConfigurations = mkIf (opts.config != null)
+      (alloyFlake.lib.apply opts.config opts.nixosConfigurations);
   };
 }

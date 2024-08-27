@@ -25,7 +25,7 @@ To install `alloy` you can use `flake-parts` or do it yourself.
 - When doing it yourself, wrap your `nixosConfigurations` in a call to `alloy.lib.apply`, providing configuration:
 
 ```nix
-nixosConfigurations = alloy.lib.apply (import ./alloy_config.nix) {
+nixosConfigurations = alloy.lib.apply [ ./alloy_config.nix ] {
   host = { ... };
   # your configs
 }
@@ -33,7 +33,7 @@ nixosConfigurations = alloy.lib.apply (import ./alloy_config.nix) {
 
 ## Configuration
 
-General idea looks like this:
+In general your configuration would look like this.
 
 ```nix
 {
@@ -47,6 +47,8 @@ General idea looks like this:
 }
 ```
 
+`alloy` configuration uses Nix modules, so you can use `imports`, `config`, etc. `alloy` modules have a special argument `alloy-utils`, which is `alloy.lib.utils`.
+
 ## Example
 
 See `/example` for a complete flake, defining multiple interdependent configurations via `alloy`.
@@ -54,6 +56,6 @@ See `/example` for a complete flake, defining multiple interdependent configurat
 ## TODO
 
 - [x] make this a flake-parts module
-- [ ] use nix's module system for config
+- [x] use nix's module system for config
 - [ ] handle multi-instance services
 - [ ] documentation, errors
