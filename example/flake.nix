@@ -1,21 +1,31 @@
 {
   inputs = {
     alloy.url = "../";
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
-  outputs = { alloy, ... }: {
+  outputs = inputs@{ alloy, flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        alloy.flakeModule
+      ];
 
-    nixosConfigurations = alloy.lib.apply (import ./alloy_config.nix alloy) {
-      server = alloy.inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [];
-      };
+      systems = [ "x86_64-linux" ];
 
-      client = alloy.inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [];
+      flake = {
+        alloy.config = ./alloy_config.nix;
+
+        alloy.nixosConfigurations = {
+          server = alloy.inputs.nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [ ];
+          };
+
+          client = alloy.inputs.nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [ ];
+          };
+        };
       };
     };
-
-  };
 }

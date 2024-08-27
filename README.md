@@ -41,7 +41,7 @@ See `example` for a complete demonstration.
 
 ## TODO
 
-- make this a flake-parts module
-- use nix's module system for configuring alloy
-- handle multi-instance services
-- documentation, errors
+- (x) make this a flake-parts module
+- ( ) use nix's module system for configuring alloy
+- ( ) handle multi-instance services
+- ( ) documentation, errors

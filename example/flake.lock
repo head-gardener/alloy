@@ -2,17 +2,16 @@
   "nodes": {
     "alloy": {
       "inputs": {
-        "flake-parts": "flake-parts",
         "nixpkgs": "nixpkgs"
       },
       "locked": {
         "lastModified": 0,
-        "narHash": "sha256-XJ5kQk2IaIPriAG8o9FBj5RYlUApTTN/UYiE5ALIQxM=",
-        "path": "/nix/store/jd0lbx9hnhf32biq7vzcz8i9fx11w6qz-source",
+        "narHash": "sha256-rMtUCWmV4F4H8fJ342SfTSel0J+jFDCvQzTbDZQ0Dfw=",
+        "path": "/nix/store/xpmxp7sf9lq3gdic7xcwd84w0rhk2ibm-source",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/jd0lbx9hnhf32biq7vzcz8i9fx11w6qz-source",
+        "path": "/nix/store/xpmxp7sf9lq3gdic7xcwd84w0rhk2ibm-source",
         "type": "path"
       }
     },
@@ -64,7 +63,8 @@
     },
     "root": {
       "inputs": {
-        "alloy": "alloy"
+        "alloy": "alloy",
+        "flake-parts": "flake-parts"
       }
     }
   },
