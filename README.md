@@ -53,7 +53,7 @@ See `/example` for a complete flake, defining multiple interdependent configurat
 
 ## TODO
 
-- (x) make this a flake-parts module
-- ( ) use nix's module system for config
-- ( ) handle multi-instance services
-- ( ) documentation, errors
+- [x] make this a flake-parts module
+- [ ] use nix's module system for config
+- [ ] handle multi-instance services
+- [ ] documentation, errors
