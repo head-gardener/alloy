@@ -21,7 +21,7 @@ in
 ## Installation
 
 To install `alloy` you can use `flake-parts` or do it yourself. 
-- When using parts, add `alloy.flakeModule` to your imports, put your configuration in `flake.alloy.config` and move `flake.nixosConfigurations` to `flake.alloy.nixosConfigurations`.
+- When using parts, add `alloy.flakeModule` to your imports, put your configuration in `flake.alloy.config` and move `flake.nixosConfigurations` to `flake.alloy.nixosConfigurations`. See [module defenition](./flake-module.nix) for details.
 - When doing it yourself, wrap your `nixosConfigurations` in a call to `alloy.lib.apply`, providing configuration:
 
 ```nix
