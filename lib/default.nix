@@ -33,7 +33,10 @@ in
   apply = conf: super:
     let
 
-      inherit ((evalAlloyConfig conf).config) hosts modules settings;
+      inherit ((evalAlloyConfig conf).config)
+        hosts
+        modules
+        settings;
 
       valsToNames = mapAttrs (n: _: n);
 
@@ -61,7 +64,7 @@ in
         let
           extend = h: ms: super.${h}.extendModules {
             modules = ms;
-            specialArgs = { inherit alloy; };
+            specialArgs = { inherit alloy; } // settings.extraSpecialArgs;
           };
         in
         mapAttrs extend (hosts modules);

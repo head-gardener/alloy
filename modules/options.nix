@@ -5,6 +5,14 @@ in
 {
   options = {
     settings = {
+      extraSpecialArgs = lib.mkOption {
+        type = types.attrsOf types.raw;
+        default = {};
+        description = ''
+          Extra specialArgs to pass to imported modules.
+        '';
+      };
+
       resolve = lib.mkOption {
         type = types.functionTo types.str;
         default = id;
