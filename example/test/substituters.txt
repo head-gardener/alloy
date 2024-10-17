@@ -1,0 +1,4 @@
+[
+  "http://10.0.0.1:5000",
+  "https://cache.nixos.org/"
+]
