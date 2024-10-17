@@ -5,14 +5,16 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 0,
-        "narHash": "sha256-5llEhzyNmOk7x31nFE6dGJBvblWTSnCpINBpnjra1IU=",
-        "path": "/nix/store/56xh8fikgskv37xk698bcf1a9xd70p5m-source",
-        "type": "path"
+        "dirtyRev": "b37b31ea9beee1ab712fb2712a74551ee51b6271-dirty",
+        "dirtyShortRev": "b37b31e-dirty",
+        "lastModified": 1729162653,
+        "narHash": "sha256-WLmK24HUDSKcwVVw027jgQOOar6UYncddrPPNyEVDxk=",
+        "type": "git",
+        "url": "file:.."
       },
       "original": {
-        "path": "/nix/store/56xh8fikgskv37xk698bcf1a9xd70p5m-source",
-        "type": "path"
+        "type": "git",
+        "url": "file:.."
       }
     },
     "flake-parts": {

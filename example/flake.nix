@@ -1,6 +1,6 @@
 {
   inputs = {
-    alloy.url = "../";
+    alloy.url = "git+file:..";
     flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
