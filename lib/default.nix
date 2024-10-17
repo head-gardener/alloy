@@ -47,13 +47,18 @@ in
 
       mkAlloy = hosts:
         let
+          expandHostname = hostname: {
+            address = settings.resolve hostname;
+            hostname = hostname;
+            config = hosts.${hostname}.config;
+          };
+
           toArg = n: _:
             let
-              hostname = lib.head (getHosts n);
-            in
-            {
-              host = settings.resolve hostname;
-              config = hosts.${hostname}.config;
+              allHosts = (getHosts n);
+              firstHost = lib.head allHosts;
+            in (expandHostname firstHost) // {
+              forEach = f: map (h: f (expandHostname h)) allHosts;
             };
 
           result = mapAttrs toArg modules;

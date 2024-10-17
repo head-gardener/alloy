@@ -6,10 +6,10 @@ in
   nix = {
     settings = {
       substituters = [
-        "http://${nix-serve.host}:${toString nix-serve.config.services.nix-serve.port}"
+        "http://${nix-serve.address}:${toString nix-serve.config.services.nix-serve.port}"
       ];
       trusted-public-keys = [
-        alloy.nix-serve.config.services.nix-serve.pubkey
+        nix-serve.config.services.nix-serve.pubkey
       ];
     };
   };
