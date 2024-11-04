@@ -57,5 +57,7 @@ See `/example` for a complete flake, defining multiple interdependent configurat
 
 - [x] make this a flake-parts module
 - [x] use nix's module system for config
-- [ ] handle multi-instance services
+- [x] handle multi-instance services
+- [ ] middleware
+- [ ] remote extend
 - [ ] documentation, errors
