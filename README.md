@@ -25,10 +25,14 @@ To install `alloy` you can use `flake-parts` or do it yourself.
 - When doing it yourself, wrap your `nixosConfigurations` in a call to `alloy.lib.apply`, providing configuration:
 
 ```nix
-nixosConfigurations = alloy.lib.apply [ ./alloy_config.nix ] {
-  host = { ... };
-  # your configs
-}
+nixosConfigurations = alloy.lib.apply {
+  config = [ ./alloy_config.nix ];
+  extraSpecialArgs = { ... };
+  nixosConfigurations = {
+    host = { ... };
+    # your configs
+  }
+};
 ```
 
 ## Configuration

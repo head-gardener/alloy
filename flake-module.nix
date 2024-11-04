@@ -2,7 +2,7 @@ alloyFlake: { lib, flake-parts-lib, config, inputs, ... }:
 let
   inherit (lib) mkIf mkOption types;
 
-  opts = config.flake.alloy;
+  cfg = config.flake.alloy;
 in
 {
   options = {
@@ -16,6 +16,14 @@ in
           '';
         };
 
+        extraSpecialArgs = mkOption {
+          type = types.lazyAttrsOf types.raw;
+          default = { };
+          description = ''
+            Special args to pass to alloy configuration modules.
+          '';
+        };
+
         config = mkOption {
           type = with types; nullOr (either (listOf raw) raw);
         };
@@ -24,7 +32,7 @@ in
   };
 
   config = {
-    flake.nixosConfigurations = mkIf (opts.config != null)
-      (alloyFlake.lib.apply opts.config opts.nixosConfigurations);
+    flake.nixosConfigurations = mkIf (cfg.config != null)
+      (alloyFlake.lib.apply cfg);
   };
 }

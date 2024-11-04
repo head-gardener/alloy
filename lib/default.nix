@@ -6,17 +6,17 @@ let
     fromTable = table: x: table.${x};
   };
 
-  evalAlloyConfig = conf:
+  evalAlloyConfig = cfg:
     let
       baseModules = [
         ../modules/options.nix
       ];
 
-      userModules = if builtins.isList conf then conf else [ conf ];
+      userModules = if builtins.isList cfg.config then cfg.config else [ cfg.config ];
 
       finalConf = lib.evalModules {
         modules = baseModules ++ userModules;
-        specialArgs = { alloy-utils = utils; };
+        specialArgs = { alloy-utils = utils; } // cfg.extraSpecialArgs;
       };
     in
     finalConf;
@@ -30,10 +30,10 @@ in
     docs = pkgs.nixosOptionsDoc { inherit (eval) options; };
   in docs;
 
-  apply = conf: super:
+  apply = cfg:
     let
 
-      inherit ((evalAlloyConfig conf).config)
+      inherit ((evalAlloyConfig cfg).config)
         hosts
         modules
         settings;
@@ -67,7 +67,7 @@ in
 
       mkHosts = alloy:
         let
-          extend = h: ms: super.${h}.extendModules {
+          extend = h: ms: cfg.nixosConfigurations.${h}.extendModules {
             modules = ms;
             specialArgs = { inherit alloy; } // settings.extraSpecialArgs;
           };
@@ -80,5 +80,5 @@ in
       ]);
 
     in
-    super // hostsFixedPoint;
+    cfg.nixosConfigurations // hostsFixedPoint;
 }
