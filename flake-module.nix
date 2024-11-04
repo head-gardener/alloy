@@ -17,7 +17,7 @@ in
         };
 
         config = mkOption {
-          type = types.either (types.listOf types.raw) (types.raw);
+          type = with types; nullOr (either (listOf raw) raw);
         };
       };
     };
