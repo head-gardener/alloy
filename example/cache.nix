@@ -1,8 +1,6 @@
-{ alloy, ... }:
-let
+{alloy, ...}: let
   inherit (alloy) nix-serve;
-in
-{
+in {
   nix = {
     settings = {
       substituters = [

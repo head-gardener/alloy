@@ -1,5 +1,5 @@
 {
-  networking.firewall.allowedTCPPorts = [ 4000 4001 ];
+  networking.firewall.allowedTCPPorts = [4000 4001];
 
   services.prometheus = {
     enable = true;
@@ -7,7 +7,7 @@
     exporters = {
       node = {
         enable = true;
-        enabledCollectors = [ "systemd" ];
+        enabledCollectors = ["systemd"];
         port = 4001;
       };
     };

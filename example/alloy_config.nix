@@ -1,5 +1,4 @@
-{ alloy-utils, ... }:
-{
+{alloy-utils, ...}: {
   settings = {
     resolve = alloy-utils.fromTable {
       server = "10.0.0.1";
@@ -15,9 +14,10 @@
     prometheus-host = ./prometheus-host.nix;
   };
 
-  hosts = mods: with mods; {
-    server = [ prometheus-host nix-serve ];
-    client = [ prometheus-node cache ];
-    laptop = [ prometheus-node cache ];
-  };
+  hosts = mods:
+    with mods; {
+      server = [prometheus-host nix-serve];
+      client = [prometheus-node cache];
+      laptop = [prometheus-node cache];
+    };
 }

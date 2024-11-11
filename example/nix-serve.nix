@@ -1,7 +1,6 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   options = {
-    services.nix-serve.pubkey = lib.mkOption { type = lib.types.str; };
+    services.nix-serve.pubkey = lib.mkOption {type = lib.types.str;};
   };
 
   config = {
