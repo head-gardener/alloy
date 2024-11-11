@@ -1,5 +1,5 @@
 check:
-  nix eval ./example#nixosConfigurations.client.config.nix.settings.substituters
+  cd example && rm -f ./flake.lock && ./run.sh
 
 docs:
   nix build .#docs
