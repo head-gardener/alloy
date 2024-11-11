@@ -2,7 +2,6 @@ alloyFlake: {
   lib,
   flake-parts-lib,
   config,
-  inputs,
   ...
 }: let
   inherit (lib) mkIf mkOption types;
