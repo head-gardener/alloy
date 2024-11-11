@@ -55,8 +55,10 @@ in
 
           toArg = n: _:
             let
-              allHosts = (getHosts n);
-              firstHost = lib.head allHosts;
+              allHosts = getHosts n;
+              firstHost = if allHosts != []
+                then (lib.head allHosts)
+                else throw "Attempted to get hostname of a module \"${n}\" that is never used";
             in (expandHostname firstHost) // {
               forEach = f: map (h: f (expandHostname h)) allHosts;
             };
