@@ -23,3 +23,8 @@ compare \
   nixosConfigurations.server.config.services.prometheus.scrapeConfigs \
   prometheus.json \
   "forEach"
+
+compare \
+  nixosConfigurations.server.config.services.nix-serve.bindAddress \
+  self-addr.json \
+  "self special host"

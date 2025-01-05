@@ -1,4 +1,5 @@
-{alloy, ...}: let
+{ alloy, ... }:
+let
   inherit (alloy) nix-serve;
 in {
   nix = {
@@ -6,9 +7,7 @@ in {
       substituters = [
         "http://${nix-serve.address}:${toString nix-serve.config.services.nix-serve.port}"
       ];
-      trusted-public-keys = [
-        nix-serve.config.services.nix-serve.pubkey
-      ];
+      trusted-public-keys = [ nix-serve.config.services.nix-serve.pubkey ];
     };
   };
 }

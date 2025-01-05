@@ -46,13 +46,13 @@ in {
         (_: xs: elem module xs)
         (hosts (valsToNames modules)));
 
-    mkAlloy = hosts: let
-      expandHostname = hostname: {
-        address = settings.resolve hostname;
-        hostname = hostname;
-        config = hosts.${hostname}.config;
-      };
+    expandHostname = hs: hostname: {
+      address = settings.resolve hostname;
+      hostname = hostname;
+      config = hs.${hostname}.config;
+    };
 
+    mkAlloy = hosts: let
       toArg = n: _: let
         allHosts = getHosts n;
         firstHost =
@@ -60,9 +60,9 @@ in {
           then (lib.head allHosts)
           else throw "Attempted to get hostname of a module \"${n}\" that is never used";
       in
-        (expandHostname firstHost)
+        (expandHostname hosts firstHost)
         // {
-          forEach = f: map (h: f (expandHostname h)) allHosts;
+          forEach = f: map (h: f (expandHostname hosts h)) allHosts;
         };
 
       result = mapAttrs toArg modules;
@@ -70,10 +70,12 @@ in {
       result;
 
     mkHosts = alloy: let
+      alloyWithSelf = h: alloy // { self = expandHostname hosts h; };
+
       extend = h: ms:
         cfg.nixosConfigurations.${h}.extendModules {
           modules = ms;
-          specialArgs = {inherit alloy;} // settings.extraSpecialArgs;
+          specialArgs = { alloy = alloyWithSelf h; } // settings.extraSpecialArgs;
         };
     in
       mapAttrs extend (hosts modules);

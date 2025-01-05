@@ -1,4 +1,4 @@
-{lib, ...}: {
+{ alloy, lib, ... }: {
   options = {
     services.nix-serve.pubkey = lib.mkOption {type = lib.types.str;};
   };
@@ -9,6 +9,7 @@
 
       enable = true;
       openFirewall = true;
+      bindAddress = alloy.self.address;
     };
   };
 }
