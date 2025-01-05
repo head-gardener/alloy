@@ -1,0 +1,11 @@
+{
+  "/": {
+    "basicAuth": {},
+    "extraConfig": "",
+    "fastcgiParams": {},
+    "priority": 1000,
+    "proxyPass": "http://10.0.0.2:80",
+    "proxyWebsockets": false,
+    "recommendedProxySettings": false,
+  }
+}

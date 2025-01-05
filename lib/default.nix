@@ -1,5 +1,5 @@
 lib: let
-  inherit (lib) attrNames elem filterAttrs mapAttrs fix flip pipe;
+  inherit (lib) attrNames elem filterAttrs mapAttrs fix flip pipe nameValuePair;
 
   utils = {
     fromTable = table: x: table.${x};
@@ -74,15 +74,47 @@ in {
 
       extend = h: ms:
         cfg.nixosConfigurations.${h}.extendModules {
-          modules = ms;
+          modules = ms ++ [ ./nixosModule.nix ];
           specialArgs = { alloy = alloyWithSelf h; } // settings.extraSpecialArgs;
         };
     in
       mapAttrs extend (hosts modules);
 
+    addExtensions = hs: let
+      extensions = let
+        extensionsRotated = mapAttrs (_: v: v.config.alloy.extend) hs;
+
+        rotateConcat = attrs:
+          let
+            keys = lib.unique (builtins.concatMap
+              builtins.attrNames
+              (builtins.attrValues attrs));
+
+            result = builtins.listToAttrs (map (key:
+              nameValuePair key (
+                builtins.concatLists
+                  (map (attrSet: attrSet.${key} or [])
+                    (builtins.attrValues attrs)))
+            ) keys);
+          in
+            result;
+      in rotateConcat extensionsRotated;
+
+      extend = h: val: let
+        ms = builtins.concatMap
+          (n: extensions.${n} or [])
+          (hosts (valsToNames modules)).${h};
+      in
+        val.extendModules {
+          modules = ms;
+        };
+    in
+      mapAttrs extend hs;
+
     hostsFixedPoint = fix ((flip pipe) [
       mkAlloy
       mkHosts
+      addExtensions
     ]);
   in
     cfg.nixosConfigurations // hostsFixedPoint;

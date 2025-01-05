@@ -28,3 +28,8 @@ compare \
   nixosConfigurations.server.config.services.nix-serve.bindAddress \
   self-addr.json \
   "self special host"
+
+compare \
+  nixosConfigurations.server.config.services.nginx.virtualHosts.darkhttpd.locations \
+  nginx.json \
+  "remote extend"
