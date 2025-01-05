@@ -1,5 +1,5 @@
 check:
-  cd example && rm -f ./flake.lock && ./run.sh
+  cd example && nix flake update alloy --option warn-dirty false && ./run.sh
 
 docs:
   nix build .#docs
