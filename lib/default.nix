@@ -102,7 +102,7 @@ in {
 
       extend = h: val: let
         ms = builtins.concatMap
-          (n: extensions.${n} or [])
+          (n: if builtins.typeOf n == "string" then extensions.${n} or [] else [])
           (hosts (valsToNames modules)).${h};
       in
         val.extendModules {

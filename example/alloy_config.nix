@@ -18,8 +18,20 @@
 
   hosts = mods:
     with mods; {
-      server = [ nginx prometheus-host nix-serve ];
-      client = [ web-app prometheus-node cache ];
-      laptop = [ prometheus-node cache ];
+      server = [
+        { system.nixosVersion = "unstable"; }
+        nginx
+        prometheus-host
+        nix-serve
+      ];
+      client = [
+        web-app
+        prometheus-node
+        cache
+      ];
+      laptop = [
+        prometheus-node
+        cache
+      ];
     };
 }

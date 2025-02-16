@@ -7,10 +7,10 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "dirtyRev": "1d5303a93dba8625b38d4d674dc974c3a6dd7abd-dirty",
-        "dirtyShortRev": "1d5303a-dirty",
-        "lastModified": 1736115658,
-        "narHash": "sha256-FTTly1loXFTZ0/MpVTY43CA1ZEGawO4RttMty74xGVo=",
+        "dirtyRev": "8590569b1535c60609cad5bff31b7fcdc245886c-dirty",
+        "dirtyShortRev": "8590569-dirty",
+        "lastModified": 1736121831,
+        "narHash": "sha256-buGnItMz8cuAZFdeBKn//rQmrOh2xwLhc1TQybO6Gck=",
         "type": "git",
         "url": "file:.."
       },
